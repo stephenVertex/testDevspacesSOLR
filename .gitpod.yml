@@ -2,12 +2,12 @@
 tasks:
   - init: |
       docker pull solr:8.11.2
-      docker run -d --name=solr-server \
-        -p 8983:8983 solr:8.11.2
+      # docker run -d -p 8983:8983 --name my_solr solr solr-precreate my_core
+      docker run -d -p 8983:8983 --name my_solr -v $PWD/config/solr:/my_core_config/conf solr:8 solr-precreate my_core /my_core_config
       pip3 install pysolr
       pip3 install ipython
       git clone https://github.com/prust/wikipedia-movie-data.git
-    command: docker start solr-server
+    command: docker start my_solr
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
   - port: 8983
