@@ -1,0 +1,13 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - init: |
+      docker pull solr:8.11.2
+      docker run -d --name=solr-server \
+        -p 8983:8983 solr:8.11.2
+    command: docker start solr-server
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 8983
+    onOpen: open-preview
+    visibility: public
+    description: SOLR web UI port
