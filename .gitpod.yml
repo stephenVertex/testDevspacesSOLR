@@ -3,7 +3,9 @@ tasks:
   - init: |
       docker pull solr:8.11.2
       mkdir -p solr-data
-      docker run -d -p 8983:8983 --name my_solr solr solr-precreate my_core
+      # docker run -d -p 8983:8983 --name my_solr solr solr-precreate my_core
+      sudo chown 8983:8983 solr-data  # necessary on Linux, not Mac.
+      docker run -d -v "$PWD/solr-data:/var/solr" -p 8983:8983 --name my_solr solr:8 solr-precreate my_core
       pip3 install pysolr
       pip3 install ipython
       git clone https://github.com/prust/wikipedia-movie-data.git
